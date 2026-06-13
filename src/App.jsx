@@ -35,42 +35,72 @@ function useReveal() {
 const Nav = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 30);
     window.addEventListener('scroll', fn);
     return () => window.removeEventListener('scroll', fn);
   }, []);
-  const links = ['About','Skills','Experience','Projects','Contact'];
+
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
+  const links = ['About', 'Skills', 'Experience', 'Projects', 'Contact'];
+
   return (
-    <>
-      <nav id="nav" className={scrolled ? 'scrolled' : ''}>
-        <div className="container">
-          <div className="nav-inner">
-            {/* <div className="nav-brand">
-              <div className="nav-brand-dot"></div>
-              akhil.dev
-            </div> */}
-            <ul className="nav-links">
-              {links.map(l => (
-                <li key={l}><a href={`#${l.toLowerCase()}`}>{l}</a></li>
-              ))}
-            </ul>
-            <a href="mailto:akhilmohan8547@gmail.com" className="nav-cta">Hire Me</a>
-            <div className="nav-menu-btn" onClick={() => setOpen(o => !o)}>
-              <span style={open?{transform:'rotate(45deg) translate(5px,5px)'}:{}}></span>
-              <span style={open?{opacity:0}:{}}></span>
-              <span style={open?{transform:'rotate(-45deg) translate(5px,-5px)'}:{}}></span>
-            </div>
-          </div>
+    <nav id="nav" className={scrolled ? 'scrolled' : ''}>
+      <div className="container">
+        <div className="nav-inner">
+          <ul className="nav-links">
+            {links.map(l => (
+              <li key={l}>
+                <a href={`#${l.toLowerCase()}`}>{l}</a>
+              </li>
+            ))}
+          </ul>
+
+          <a href="mailto:akhilmohan8547@gmail.com" className="nav-cta desktop-cta">
+            Hire Me
+          </a>
+
+          <button
+            className={`nav-menu-btn ${open ? 'open' : ''}`}
+            onClick={() => setOpen(o => !o)}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
-        <div className={`mobile-menu ${open ? 'open' : ''}`}>
-          {links.map(l => (
-            <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setOpen(false)}>{l}</a>
-          ))}
-          <a href="mailto:akhilmohan8547@gmail.com" style={{color:'var(--green)'}} onClick={() => setOpen(false)}>✉ Hire Me</a>
-        </div>
-      </nav>
-    </>
+      </div>
+
+      {open && (
+        <div className="mobile-backdrop" onClick={() => setOpen(false)} />
+      )}
+
+      <div className={`mobile-menu ${open ? 'open' : ''}`}>
+        {links.map(l => (
+          <a
+            key={l}
+            href={`#${l.toLowerCase()}`}
+            onClick={() => setOpen(false)}
+          >
+            {l}
+          </a>
+        ))}
+        <a
+          href="mailto:akhilmohan8547@gmail.com"
+          className="mobile-hire"
+          onClick={() => setOpen(false)}
+        >
+          ✉ Hire Me
+        </a>
+      </div>
+    </nav>
   );
 };
 
@@ -112,8 +142,6 @@ const Hero = () => {
           <div className="hero-right">
             <div className="photo-wrap">
               <div className="photo-bg-ring"></div>
-
-              {/* Floating badges */}
               <div className="float-badge top-right">
                 <div>
                   <div className="float-badge-num">30%</div>
@@ -376,7 +404,7 @@ const Contact = () => {
                 { icon:'✉️', label:'Email', val:'akhilmohan8547@gmail.com', href:'mailto:akhilmohan8547@gmail.com' },
                 { icon:'📞', label:'Phone', val:'+91 85470 90714', href:'tel:+918547090714' },
                 { icon:'⌨️', label:'GitHub', val:'github.com/akhilmohan123', href:'https://github.com/akhilmohan123' },
-                { icon:'💼', label:'LinkedIn', val:'https://www.linkedin.com/in/akhil-mohan-470296268/', href:'#' },
+                { icon:'💼', label:'LinkedIn', val:'linkedin.com/in/akhil-mohan-470296268', href:'https://www.linkedin.com/in/akhil-mohan-470296268/' },
               ].map(c => (
                 <a href={c.href} className="clink" key={c.label} target={c.href.startsWith('http')?'_blank':undefined}>
                   <div className="clink-icon">{c.icon}</div>
