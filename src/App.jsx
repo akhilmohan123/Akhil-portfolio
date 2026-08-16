@@ -931,10 +931,10 @@ const Footer = () => {
     <footer>
       <div className="container">
         <div className="foot-inner">
-          <span className="foot-left">
+          {/* <span className="foot-left">
             © 2026 <span>Akhil Mohan</span> · Built with React ·
             Made in Kerala
-          </span>
+          </span> */}
 
           <div className="foot-right">
             <a
