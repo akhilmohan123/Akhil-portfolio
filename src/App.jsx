@@ -267,7 +267,7 @@ const About = () => {
             {[
               ['Role', 'Software Engineer'],
               ['Company', 'Vista'],
-              ['Location', 'Kerala, India'],
+              ['Location', 'Bengaluru, India'],
               [
                 'Email',
                 'akhilmohan8547@gmail.com',
@@ -278,7 +278,6 @@ const About = () => {
                 '+91 85470 90714',
                 'tel:+918547090714'
               ],
-              ['Experience', '1.9 Years'],
               ['Education', 'B.Tech CS, 2024']
             ].map(([k, v, href]) => (
               <div className="info-item" key={k}>
